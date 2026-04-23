@@ -1,0 +1,16 @@
+{
+  "short_name": "LekhSahayak",
+  "name": "LekhSahayak - Civic Complaint System",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "theme_color": "#0ea5e9",
+  "description": "Report your civic issues simply by speaking in Hindi or English."
+}
