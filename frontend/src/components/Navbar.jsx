@@ -80,7 +80,7 @@ const Navbar = () => {
               </div>
             ) : (
               // Logged out — Login/Register dikhao
-              <div className="flex flex-row space-x-3">
+              <div className="flex flex-row items-center space-x-3">
                 <Link to="/login" className="px-4 py-2 font-bold text-sm rounded-xl transition-all duration-200 hover:text-brand-400" style={{ color: 'var(--text-secondary)' }}>
                   {t('nav.login')}
                 </Link>

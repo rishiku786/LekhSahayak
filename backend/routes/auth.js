@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const AuditLog = require('../models/AuditLog');
-const { authenticate, generateToken } = require('../middleware/auth');
+const Department = require('../models/Department');
+const { authenticate, authorize, generateToken } = require('../middleware/auth');
 const { authLimiter } = require('../middleware/rateLimiter');
 
 // Register
@@ -173,4 +174,87 @@ router.get('/me', authenticate, async (req, res) => {
   }
 });
 
+// Super Admin — Create Official (officer / department_head)
+router.post('/create-official', authenticate, authorize('super_admin'), async (req, res) => {
+  try {
+    const { name, email, password, phone, role, department } = req.body;
+
+    if (!name || !email || !password || !role) {
+      return res.status(400).json({ error: 'Name, email, password, and role are required' });
+    }
+
+    if (!['officer', 'department_head'].includes(role)) {
+      return res.status(400).json({ error: 'Role must be officer or department_head' });
+    }
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Email already registered' });
+    }
+
+    const official = await User.create({
+      name,
+      email,
+      password,
+      phone: phone || '',
+      role,
+      department: department || null,
+      isVerified: true,
+    });
+
+    if (department) {
+      const dept = await Department.findById(department);
+      if (dept) {
+        if (role === 'department_head') {
+          dept.head = official._id;
+        } else if (role === 'officer') {
+          if (!dept.officers.includes(official._id)) {
+            dept.officers.push(official._id);
+          }
+        }
+        await dept.save();
+      }
+    }
+
+    await AuditLog.create({
+      action: 'user_registered',
+      actor: req.user._id,
+      actorName: req.user.name,
+      targetType: 'user',
+      targetId: official._id.toString(),
+      details: `Super Admin created ${role}: ${email}`,
+      ipAddress: req.ip,
+    });
+
+    res.status(201).json({
+      success: true,
+      user: {
+        id: official._id,
+        name: official.name,
+        email: official.email,
+        role: official.role,
+        department: official.department,
+        isVerified: official.isVerified,
+      },
+    });
+  } catch (error) {
+    console.error('Create official error:', error);
+    res.status(500).json({ error: 'Failed to create official account' });
+  }
+});
+
+// Super Admin — List all officials
+router.get('/officials', authenticate, authorize('super_admin'), async (req, res) => {
+  try {
+    const officials = await User.find({
+      role: { $in: ['officer', 'department_head', 'super_admin'] }
+    }).select('name email role department phone isVerified createdAt').sort({ createdAt: -1 });
+
+    res.json(officials);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch officials' });
+  }
+});
+
 module.exports = router;
+
