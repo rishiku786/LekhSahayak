@@ -29,8 +29,8 @@ const Navbar = () => {
 
           {/* Logo */}
           <Link to={isAuthenticated ? (isAdmin ? '/admin' : '/complaint-form') : '/'} className="flex items-center space-x-2.5 group">
-            <div className="w-9 h-9 rounded-xl overflow-hidden flex items-center justify-center flex-shrink-0 shadow-md" style={{ background: 'var(--gradient-primary)' }}>
-              <img src="/logo.svg" alt="LekhSahayak Logo" className="w-full h-full object-cover scale-[2.7] brightness-0 invert" />
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md" style={{ background: 'var(--gradient-primary)' }}>
+              <PenLine className="w-5 h-5 text-white transition-transform duration-200 group-hover:scale-110" />
             </div>
             <span className="text-xl font-bold tracking-tight hidden sm:block" style={{ fontFamily: 'var(--font-heading)' }}>
               <span className="gradient-text">Lekh</span>
