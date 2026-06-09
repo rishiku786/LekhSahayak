@@ -328,14 +328,15 @@ const AdminDashboard = () => {
                     {t('admin.official_name')}
                   </label>
                   <div className="relative">
-                    <User className="absolute left-4 top-3.5 w-4 h-4" style={{ color: 'var(--text-muted)' }} />
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: 'var(--text-muted)' }} />
                     <input
                       type="text"
                       required
                       placeholder={t('admin.official_name')}
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="input-dark pl-11"
+                      className="input-dark"
+                      style={{ paddingLeft: '2.75rem' }}
                     />
                   </div>
                 </div>
@@ -345,14 +346,15 @@ const AdminDashboard = () => {
                     {t('admin.official_email')}
                   </label>
                   <div className="relative">
-                    <Mail className="absolute left-4 top-3.5 w-4 h-4" style={{ color: 'var(--text-muted)' }} />
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: 'var(--text-muted)' }} />
                     <input
                       type="email"
                       required
                       placeholder="e.g. officer@lekhsahayak.gov.in"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="input-dark pl-11"
+                      className="input-dark"
+                      style={{ paddingLeft: '2.75rem' }}
                     />
                   </div>
                 </div>
@@ -362,14 +364,15 @@ const AdminDashboard = () => {
                     {t('admin.official_password')}
                   </label>
                   <div className="relative">
-                    <Key className="absolute left-4 top-3.5 w-4 h-4" style={{ color: 'var(--text-muted)' }} />
+                    <Key className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: 'var(--text-muted)' }} />
                     <input
                       type="password"
                       required
                       placeholder="Minimum 6 characters"
                       value={formData.password}
                       onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                      className="input-dark pl-11"
+                      className="input-dark"
+                      style={{ paddingLeft: '2.75rem' }}
                     />
                   </div>
                 </div>
@@ -379,13 +382,14 @@ const AdminDashboard = () => {
                     {t('admin.official_phone')}
                   </label>
                   <div className="relative">
-                    <Phone className="absolute left-4 top-3.5 w-4 h-4" style={{ color: 'var(--text-muted)' }} />
+                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: 'var(--text-muted)' }} />
                     <input
                       type="text"
                       placeholder="10-digit number"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="input-dark pl-11"
+                      className="input-dark"
+                      style={{ paddingLeft: '2.75rem' }}
                     />
                   </div>
                 </div>
@@ -395,11 +399,12 @@ const AdminDashboard = () => {
                     {t('admin.official_role')}
                   </label>
                   <div className="relative">
-                    <Shield className="absolute left-4 top-3.5 w-4 h-4" style={{ color: 'var(--text-muted)' }} />
+                    <Shield className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: 'var(--text-muted)' }} />
                     <select
                       value={formData.role}
                       onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                      className="input-dark pl-11 appearance-none cursor-pointer"
+                      className="input-dark appearance-none cursor-pointer"
+                      style={{ paddingLeft: '2.75rem' }}
                     >
                       <option value="officer" style={{ background: 'var(--bg-surface)' }}>{t('admin.role_officer')}</option>
                       <option value="department_head" style={{ background: 'var(--bg-surface)' }}>{t('admin.role_dept_head')}</option>
@@ -412,12 +417,13 @@ const AdminDashboard = () => {
                     {t('admin.official_department')}
                   </label>
                   <div className="relative">
-                    <Building className="absolute left-4 top-3.5 w-4 h-4" style={{ color: 'var(--text-muted)' }} />
+                    <Building className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: 'var(--text-muted)' }} />
                     <select
                       value={formData.department}
                       onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                      className="input-dark pl-11 appearance-none cursor-pointer"
+                      className="input-dark appearance-none cursor-pointer"
                       required
+                      style={{ paddingLeft: '2.75rem' }}
                     >
                       <option value="" style={{ background: 'var(--bg-surface)' }}>-- {t('admin.official_department')} --</option>
                       {departments.map((d) => (
