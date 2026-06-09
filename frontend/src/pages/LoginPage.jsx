@@ -79,7 +79,12 @@ const LoginPage = () => {
 
         <div className="flex p-1 rounded-xl relative z-10" style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-subtle)' }}>
           <button
-            onClick={() => setIsCitizen(true)}
+            onClick={() => {
+              setIsCitizen(true);
+              setEmail('');
+              setPassword('');
+              setError('');
+            }}
             className={`flex-1 py-2.5 text-sm font-bold rounded-lg transition-all duration-200 ${isCitizen ? 'text-white shadow-md' : 'hover:text-brand-400'
               }`}
             style={isCitizen ? { background: 'var(--gradient-primary)' } : { color: 'var(--text-muted)' }}
@@ -87,7 +92,12 @@ const LoginPage = () => {
             {t('auth.citizen')}
           </button>
           <button
-            onClick={() => setIsCitizen(false)}
+            onClick={() => {
+              setIsCitizen(false);
+              setEmail('');
+              setPassword('');
+              setError('');
+            }}
             className={`flex-1 py-2.5 text-sm font-bold rounded-lg transition-all duration-200 ${!isCitizen ? 'text-white shadow-md' : 'hover:text-brand-400'
               }`}
             style={!isCitizen ? { background: 'var(--bg-surface-hover)', color: 'var(--text-primary)' } : { color: 'var(--text-muted)' }}
