@@ -117,6 +117,7 @@ const RegisterPage = () => {
               className="input-dark"
               placeholder="ramesh@example.com"
               required
+              autoComplete="off"
             />
           </div>
 
@@ -129,6 +130,7 @@ const RegisterPage = () => {
               onChange={handleChange}
               className="input-dark"
               placeholder="+91 9876543210"
+              autoComplete="off"
             />
           </div>
 
@@ -143,6 +145,7 @@ const RegisterPage = () => {
                 className="input-dark"
                 required
                 minLength="6"
+                autoComplete="new-password"
               />
             </div>
             <div>
@@ -154,6 +157,7 @@ const RegisterPage = () => {
                 onChange={handleChange}
                 className="input-dark"
                 required
+                autoComplete="new-password"
               />
             </div>
           </div>
