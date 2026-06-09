@@ -112,7 +112,7 @@ router.post('/complaint', optionalAuth, complaintLimiter, upload.array('images',
 
   } catch (error) {
     console.error('Error processing complaint:', error);
-    res.status(500).json({ error: 'Internal server error processing complaint' });
+    res.status(500).json({ error: error.message, stack: error.stack });
   }
 });
 
