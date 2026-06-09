@@ -156,7 +156,41 @@ const LoginPage = () => {
           </div>
         )}
 
-        <div className="text-center mt-3 relative z-10">
+        {/* Recruiter Quick Demo Login Helper */}
+        <div className="mt-6 p-4 rounded-2xl relative z-10 text-xs text-left animate-fade-in" style={{ background: 'var(--bg-surface)', border: '1px dashed var(--border-strong)' }}>
+          <p className="font-bold mb-2 flex items-center" style={{ color: 'var(--text-accent)', fontSize: '11px' }}>
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-400 mr-1.5 animate-pulse" />
+            Quick Demo Accounts (For Recruiters)
+          </p>
+          <div className="flex flex-col gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                setIsCitizen(false);
+                setEmail('superadmin@lekhsahayak.gov.in');
+                setPassword('password123');
+              }}
+              className="flex justify-between items-center p-2 rounded-xl transition hover:bg-white/5 cursor-pointer text-[11px] text-left border border-white/5"
+            >
+              <span>🔑 <strong>Super Admin:</strong> superadmin@lekhsahayak.gov.in</span>
+              <span className="text-[10px] px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-400 font-bold border border-brand-500/20">Auto Fill</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setIsCitizen(false);
+                setEmail('officer1@lekhsahayak.gov.in');
+                setPassword('password123');
+              }}
+              className="flex justify-between items-center p-2 rounded-xl transition hover:bg-white/5 cursor-pointer text-[11px] text-left border border-white/5"
+            >
+              <span>👮 <strong>Officer:</strong> officer1@lekhsahayak.gov.in</span>
+              <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 font-bold border border-amber-500/20">Auto Fill</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="text-center mt-4 relative z-10">
           <Link to="/" className="text-sm transition hover:text-brand-400" style={{ color: 'var(--text-muted)' }}>
             ← {t('nav.back_home')}
           </Link>
