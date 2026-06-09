@@ -462,7 +462,7 @@ Respond with ONLY valid JSON: { "department_name": "..." }`;
   } catch (error) {
     if (error.isValidationError) throw error;
     console.error('Orchestrator Error:', error);
-    throw new Error('Failed to process complaint through the Agent Pipeline');
+    throw error;
   }
 }
 
