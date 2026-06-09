@@ -114,7 +114,7 @@ const LoginPage = () => {
         )}
 
         <form onSubmit={handleLogin} className="mt-8 space-y-6 relative z-10">
-            <div>
+             <div>
               <label className="block text-sm font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>{t('auth.email')}</label>
               <input
                 key={isCitizen ? 'citizen-email' : 'official-email'}
@@ -124,6 +124,7 @@ const LoginPage = () => {
                 className="input-dark"
                 placeholder="you@example.com"
                 required
+                autoComplete={isCitizen ? "off" : "email"}
               />
             </div>
             <div>
@@ -136,6 +137,7 @@ const LoginPage = () => {
                 className="input-dark"
                 placeholder="••••••••"
                 required
+                autoComplete={isCitizen ? "new-password" : "current-password"}
               />
             </div>
 
