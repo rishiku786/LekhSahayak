@@ -179,6 +179,18 @@ const LoginPage = () => {
               type="button"
               onClick={() => {
                 setIsCitizen(false);
+                setEmail('pwd_head@lekhsahayak.gov.in');
+                setPassword('password123');
+              }}
+              className="flex justify-between items-center p-2 rounded-xl transition hover:bg-white/5 cursor-pointer text-[11px] text-left border border-white/5"
+            >
+              <span>🏢 <strong>Dept Head:</strong> pwd_head@lekhsahayak.gov.in</span>
+              <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-bold border border-emerald-500/20">Auto Fill</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setIsCitizen(false);
                 setEmail('officer1@lekhsahayak.gov.in');
                 setPassword('password123');
               }}
