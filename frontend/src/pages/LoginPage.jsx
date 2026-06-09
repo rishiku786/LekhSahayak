@@ -48,7 +48,7 @@ const LoginPage = () => {
       <div className="orb orb-violet w-[400px] h-[400px] top-[10%] left-[5%]"></div>
       <div className="orb orb-cyan w-[300px] h-[300px] bottom-[10%] right-[10%]"></div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
@@ -60,7 +60,7 @@ const LoginPage = () => {
         <div className="absolute top-0 right-0 w-32 h-32 rounded-bl-full" style={{ background: 'rgba(124, 58, 237, 0.06)' }}></div>
         <div className="absolute bottom-0 left-0 w-32 h-32 rounded-tr-full" style={{ background: 'rgba(6, 182, 212, 0.04)' }}></div>
 
-        <motion.div 
+        <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
@@ -80,18 +80,16 @@ const LoginPage = () => {
         <div className="flex p-1 rounded-xl relative z-10" style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-subtle)' }}>
           <button
             onClick={() => setIsCitizen(true)}
-            className={`flex-1 py-2.5 text-sm font-bold rounded-lg transition-all duration-200 ${
-              isCitizen ? 'text-white shadow-md' : 'hover:text-brand-400'
-            }`}
+            className={`flex-1 py-2.5 text-sm font-bold rounded-lg transition-all duration-200 ${isCitizen ? 'text-white shadow-md' : 'hover:text-brand-400'
+              }`}
             style={isCitizen ? { background: 'var(--gradient-primary)' } : { color: 'var(--text-muted)' }}
           >
             {t('auth.citizen')}
           </button>
           <button
             onClick={() => setIsCitizen(false)}
-            className={`flex-1 py-2.5 text-sm font-bold rounded-lg transition-all duration-200 ${
-              !isCitizen ? 'text-white shadow-md' : 'hover:text-brand-400'
-            }`}
+            className={`flex-1 py-2.5 text-sm font-bold rounded-lg transition-all duration-200 ${!isCitizen ? 'text-white shadow-md' : 'hover:text-brand-400'
+              }`}
             style={!isCitizen ? { background: 'var(--bg-surface-hover)', color: 'var(--text-primary)' } : { color: 'var(--text-muted)' }}
           >
             {t('auth.official')}
@@ -136,11 +134,10 @@ const LoginPage = () => {
             whileTap={{ scale: 0.98 }}
             type="submit"
             disabled={loading}
-            className={`w-full flex justify-center items-center space-x-2 py-3.5 px-4 rounded-xl shadow-md text-sm font-bold text-white transition-all disabled:opacity-50 ${
-              isCitizen
+            className={`w-full flex justify-center items-center space-x-2 py-3.5 px-4 rounded-xl shadow-md text-sm font-bold text-white transition-all disabled:opacity-50 ${isCitizen
                 ? 'btn-primary'
                 : ''
-            }`}
+              }`}
             style={!isCitizen ? { background: 'var(--bg-surface-hover)', border: '1px solid var(--border-default)' } : {}}
           >
             <LogIn className="w-5 h-5 mr-2" />
