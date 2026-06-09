@@ -16,7 +16,7 @@ async function askAI(prompt, jsonMode = false) {
     messages: [{ role: 'user', content: prompt }],
     model: AI_MODEL,
     temperature: 0.3,
-    max_tokens: 4096,
+    max_tokens: 1000,
   };
   if (jsonMode) params.response_format = { type: 'json_object' };
   const completion = await openrouter.chat.completions.create(params);
@@ -61,6 +61,7 @@ If no civic issue is visible, set hasCivicIssue to false.`
         }
       ],
       temperature: 0.3,
+      max_tokens: 800,
       response_format: { type: 'json_object' }
     });
 
@@ -175,6 +176,7 @@ Respond with ONLY valid JSON:
         ]
       }],
       temperature: 0.2,
+      max_tokens: 500,
       response_format: { type: 'json_object' }
     });
 
