@@ -1,7 +1,10 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'lekhsahayak_dev_secret_key_2024';
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  throw new Error('FATAL: JWT_SECRET environment variable is not set. Server cannot start securely.');
+}
 
 // Generate JWT token
 const generateToken = (userId) => {

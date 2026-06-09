@@ -16,6 +16,8 @@ const proofsDir = path.join(uploadDir, 'proofs');
 // Storage config
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
+    // req.uploadType is set by the calling route before this middleware runs.
+    // Currently only the resolve route (api.js) sets it to 'proof'. Default is 'complaints'.
     const dest = req.uploadType === 'proof' ? proofsDir : complaintsDir;
     cb(null, dest);
   },

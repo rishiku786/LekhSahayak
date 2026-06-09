@@ -8,7 +8,7 @@ const { authLimiter } = require('../middleware/rateLimiter');
 // Register
 router.post('/register', authLimiter, async (req, res) => {
   try {
-    const { name, email, password, phone, role } = req.body;
+    const { name, email, password, phone } = req.body;
 
     if (!name || !email || !password) {
       return res.status(400).json({ error: 'Name, email, and password are required' });

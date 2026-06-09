@@ -65,6 +65,24 @@ app.use('/api/chat', chatRoutes);
 // General API Routes (includes complaint submisson, feedback, resolution)
 app.use('/api', apiRoutes);
 
+// Global error handler for Multer and other middleware errors
+const multer = require('multer');
+app.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      return res.status(400).json({ error: 'File too large. Maximum size is 5MB.' });
+    }
+    if (err.code === 'LIMIT_FILE_COUNT') {
+      return res.status(400).json({ error: 'Too many files. Maximum 5 files allowed.' });
+    }
+    return res.status(400).json({ error: `Upload error: ${err.message}` });
+  }
+  if (err && err.message && err.message.includes('Only image files')) {
+    return res.status(400).json({ error: err.message });
+  }
+  next(err);
+});
+
 // Socket.io Real-time connection
 io.on('connection', (socket) => {
   console.log('A user connected:', socket.id);

@@ -68,7 +68,12 @@ export const AuthProvider = ({ children }) => {
       hasRole,
       isAuthenticated: !!user
     }}>
-      {!loading && children}
+      {loading ? (
+        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-primary, #0f0f1a)' }}>
+          <div style={{ width: 40, height: 40, border: '3px solid rgba(124,58,237,0.2)', borderTopColor: '#7c3aed', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+          <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+        </div>
+      ) : children}
     </AuthContext.Provider>
   );
 };

@@ -120,24 +120,20 @@ router.put('/:slug/assign', authenticate, authorize('department_head', 'super_ad
   try {
     const { complaintId, officerId } = req.body;
 
-    const complaint = await Complaint.findByIdAndUpdate(
-      complaintId,
-      {
-        assignedOfficer: officerId,
-        $push: {
-          timeline: {
-            status: complaint?.status || 'In Progress',
-            note: `Assigned to officer`,
-            actor: req.user.name,
-          },
-        },
-      },
-      { new: true }
-    ).populate('assignedOfficer', 'name email');
-
+    const complaint = await Complaint.findById(complaintId);
     if (!complaint) {
       return res.status(404).json({ error: 'Complaint not found' });
     }
+
+    complaint.assignedOfficer = officerId;
+    complaint.timeline.push({
+      status: complaint.status,
+      note: `Assigned to officer`,
+      actor: req.user.name,
+    });
+    await complaint.save();
+
+    await complaint.populate('assignedOfficer', 'name email');
 
     res.json(complaint);
   } catch (error) {

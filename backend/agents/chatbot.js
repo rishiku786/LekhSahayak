@@ -7,7 +7,7 @@ const openrouter = new OpenAI({
   apiKey: process.env.OPENROUTER_API_KEY,
 });
 
-async function askGroq(prompt) {
+async function askAI(prompt) {
   try {
     const params = {
       messages: [{ role: 'user', content: prompt }],
@@ -41,7 +41,7 @@ async function discussWithChatbot(trackingId, question) {
       - SLA Deadline: ${complaint.slaDeadline ? new Date(complaint.slaDeadline).toLocaleString() : 'N/A'}
       
       Timeline of updates from newest to oldest:
-      ${complaint.timeline.reverse().map(t => `- [${t.status}] ${t.note}`).join('\n')}`;
+      ${complaint.timeline.slice().reverse().map(t => `- [${t.status}] ${t.note}`).join('\n')}`;
     } else {
       context = `The tracking ID ${trackingId} provided by the user is invalid or not found in our system.`;
     }
@@ -64,7 +64,7 @@ async function discussWithChatbot(trackingId, question) {
 
   Assistant's response:`;
 
-  return await askGroq(prompt);
+  return await askAI(prompt);
 }
 
 module.exports = { discussWithChatbot };

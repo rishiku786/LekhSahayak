@@ -149,23 +149,8 @@ router.get('/admin/complaints', authenticate, authorize('officer', 'department_h
   }
 });
 
-// Citizen/Public endpoint to check their specific complaint
-router.get('/complaint/:trackingId', async (req, res) => {
-  try {
-    const complaint = await Complaint.findOne({ trackingId: req.params.trackingId })
-      .populate('assignedOfficer', 'name')
-      .populate('citizen', 'name'); // Could omit citizen details based on privacy needs
-
-    if (!complaint) {
-      return res.status(404).json({ error: 'Complaint not found' });
-    }
-    res.status(200).json(complaint);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to find tracking ID' });
-  }
-});
-
 // Admin check for duplicate complaints based on problemType & department
+// NOTE: This must come BEFORE /complaint/:trackingId to avoid being swallowed by the param route
 router.get('/complaint/check-duplicate', authenticate, authorize('officer', 'department_head', 'super_admin'), async (req, res) => {
   try {
     const { problemType, department, excludeId } = req.query;
@@ -187,6 +172,22 @@ router.get('/complaint/check-duplicate', authenticate, authorize('officer', 'dep
     res.status(200).json(duplicates);
   } catch (error) {
     res.status(500).json({ error: 'Failed to check duplicates' });
+  }
+});
+
+// Citizen/Public endpoint to check their specific complaint
+router.get('/complaint/:trackingId', async (req, res) => {
+  try {
+    const complaint = await Complaint.findOne({ trackingId: req.params.trackingId })
+      .populate('assignedOfficer', 'name')
+      .populate('citizen', 'name'); // Could omit citizen details based on privacy needs
+
+    if (!complaint) {
+      return res.status(404).json({ error: 'Complaint not found' });
+    }
+    res.status(200).json(complaint);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to find tracking ID' });
   }
 });
 

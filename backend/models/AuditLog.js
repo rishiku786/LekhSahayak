@@ -15,6 +15,7 @@ const AuditLogSchema = new mongoose.Schema({
       'feedback_submitted',
       'user_login',
       'user_registered',
+      'priority_override',
       'export_generated',
     ],
   },

@@ -11,7 +11,7 @@ const openrouter = new OpenAI({
 const AI_MODEL = 'google/gemini-2.5-flash';
 const VISION_MODEL = 'google/gemini-2.5-flash';
 
-async function askGroq(prompt, jsonMode = false) {
+async function askAI(prompt, jsonMode = false) {
   const params = {
     messages: [{ role: 'user', content: prompt }],
     model: AI_MODEL,
@@ -82,7 +82,7 @@ async function reverseGeocode(lat, lng) {
       
       const options = {
         headers: { 
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'User-Agent': 'LekhSahayak/1.0 (civic-complaint-portal)',
           'Accept': 'application/json',
           'Accept-Language': 'en-US,en;q=0.9'
         }
@@ -214,7 +214,7 @@ Respond with ONLY valid JSON:
   "reason": "brief reason in Hindi or English why rejected (only if invalid)",
   "category": "civic" or "abusive" or "spam" or "irrelevant" or "gibberish" or "valid"
 }`;
-  const raw = await askGroq(prompt, true);
+  const raw = await askAI(prompt, true);
   return JSON.parse(raw);
 }
 
@@ -230,7 +230,7 @@ Respond with ONLY valid JSON:
   "isAddressComplete": true or false,
   "reason": "If false, politely ask in Hindi/Hinglish to provide the exact village/colony/street name. e.g. 'Aapne shehar ya jile ka naam bataya hai, par kripya exact gaon, colony ya sadak ka naam bhi batayein jese ki Rewari me konsa gaon, taaki hum theek se madad kar sakein.'"
 }`;
-  const raw = await askGroq(prompt, true);
+  const raw = await askAI(prompt, true);
   return JSON.parse(raw);
 }
 
@@ -312,7 +312,7 @@ Respond with ONLY valid JSON:
 - "language": 'Hindi', 'English', or 'Hinglish'
 - "sentiment_score": -1.0 to 1.0
 - "sentiment_label": 'Angry', 'Frustrated', 'Neutral', or 'Polite'`;
-    const langSent = JSON.parse(await askGroq(langSentPrompt, true));
+    const langSent = JSON.parse(await askAI(langSentPrompt, true));
 
     // ──────── Agent 2: Concept Extraction ────────
     console.log('[Agent 2] Extracting concepts...');
@@ -332,7 +332,7 @@ Respond with ONLY valid JSON:
 - "problem_type": "Water/Road/Electricity/Sanitation/Streetlight/Drainage/Garbage/Other"
 - "metrics": { "safety_risk": Number, "public_impact": Number, "urgency": Number }
 - "location_details": "${gpsLocation || 'any mentioned location or Unknown location'}"`;
-    const analysis = JSON.parse(await askGroq(analysisPrompt, true));
+    const analysis = JSON.parse(await askAI(analysisPrompt, true));
 
     // ──────── Advanced Priority Matrix ────────
     // Calculate final score using weighted formula:
@@ -386,7 +386,7 @@ Priority: "${analysis.priority_level}"
 ${imageAnalysis ? `Photo Evidence: Citizen has provided photographic evidence showing ${imageAnalysis.description}` : ''}
 
 Output strictly the text of the formal letter, no extra conversational text or markdown blocks.`;
-    const formalText = await askGroq(draftingPrompt, false);
+    const formalText = await askAI(draftingPrompt, false);
 
     console.log('[Agent 3.5] Translating formal draft (Batch 1: North/West)...');
     const translationPrompt1 = `
@@ -419,8 +419,8 @@ Respond with ONLY valid JSON strictly matching this format:
 
     let formalTextTranslations = {};
     try {
-      const res1 = await askGroq(translationPrompt1, true);
-      const res2 = await askGroq(translationPrompt2, true);
+      const res1 = await askAI(translationPrompt1, true);
+      const res2 = await askAI(translationPrompt2, true);
       
       const data1 = JSON.parse(res1.replace(/```json/gi, '').replace(/```/g, '').trim());
       const data2 = JSON.parse(res2.replace(/```json/gi, '').replace(/```/g, '').trim());
@@ -435,7 +435,7 @@ Respond with ONLY valid JSON strictly matching this format:
 Based on civic problem type in India: "${analysis.problem_type}", which department is responsible?
 Must be one of: ["Public Works Department (PWD)", "Municipal Corporation", "Water Supply Board", "Electricity Board", "Sanitation Department", "Traffic Police", "Health Department", "Other"]
 Respond with ONLY valid JSON: { "department_name": "..." }`;
-    const route = JSON.parse(await askGroq(routingPrompt, true));
+    const route = JSON.parse(await askAI(routingPrompt, true));
 
     const trackingId = 'SS-' + Math.random().toString(36).substring(2, 8).toUpperCase();
 
