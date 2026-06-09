@@ -80,9 +80,9 @@ async function reverseGeocode(lat, lng) {
     const https = require('https');
     return new Promise((resolve) => {
       const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&zoom=16&addressdetails=1`;
-      
+
       const options = {
-        headers: { 
+        headers: {
           'User-Agent': 'LekhSahayak/1.0 (civic-complaint-portal)',
           'Accept': 'application/json',
           'Accept-Language': 'en-US,en;q=0.9'
@@ -94,7 +94,7 @@ async function reverseGeocode(lat, lng) {
           console.error(`[Reverse Geocode] Failed with status: ${res.statusCode}`);
           return resolve(`${lat}, ${lng}`);
         }
-        
+
         let data = '';
         res.on('data', chunk => data += chunk);
         res.on('end', () => {
@@ -108,7 +108,7 @@ async function reverseGeocode(lat, lng) {
               addr.city || addr.district,
               addr.state,
             ].filter(Boolean);
-            
+
             const numLat = Number(lat);
             const numLng = Number(lng);
             const addressString = parts.length > 0 ? parts.join(', ') : json.display_name || 'Unknown Address';
@@ -344,7 +344,7 @@ Respond with ONLY valid JSON:
       const s = Math.min(Math.max(analysis.metrics.safety_risk || 3, 1), 10);
       const p = Math.min(Math.max(analysis.metrics.public_impact || 3, 1), 10);
       const u = Math.min(Math.max(analysis.metrics.urgency || 3, 1), 10);
-      
+
       // Max possible here is 35 + 30 + 25 = 90. 
       // Most average complaints (5,5,5) will score around 45 (Medium).
       baseScore = Math.round((s * 3.5) + (p * 3.0) + (u * 2.5));
@@ -352,10 +352,10 @@ Respond with ONLY valid JSON:
 
     // Minor Sentiment boost
     if ((langSent.sentiment_label === 'Angry' || langSent.sentiment_label === 'Frustrated')) {
-      baseScore += 5; 
+      baseScore += 5;
       if (baseScore > 100) baseScore = 100;
     }
-    
+
     // Deterministic priority label based purely on calculated score
     if (baseScore >= 90) analysis.priority_level = 'Critical';
     else if (baseScore >= 70) analysis.priority_level = 'High';
@@ -423,7 +423,7 @@ Respond with ONLY valid JSON strictly matching this format:
     try {
       const res1 = await askAI(translationPrompt1, true);
       const res2 = await askAI(translationPrompt2, true);
-      
+
       const data1 = JSON.parse(res1.replace(/```json/gi, '').replace(/```/g, '').trim());
       const data2 = JSON.parse(res2.replace(/```json/gi, '').replace(/```/g, '').trim());
       formalTextTranslations = { ...data1, ...data2 };
